@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Colunas } from './styles';
 import React from 'react';
+import { checkLoggedIn } from '../../../utils/auth';
 
 function TableWithPagination({  itemsPerPage, companies, onDelete,
   onEdit, editedCompanyId, onUpdate
@@ -17,6 +18,14 @@ function TableWithPagination({  itemsPerPage, companies, onDelete,
     const [totalPages, setTotalPages] = useState(1);
     const [name, setName] = useState('')
     const [urlDoc, setUrlDoc] = useState('')
+    
+    useEffect(() => {
+      const isLoggedIn = checkLoggedIn();
+      if (!isLoggedIn) {
+          document.cookie = `redirectUrl=${window.location.href}; path=/`;
+          window.location.href = '/login';
+      }
+  }, []);
 
     useEffect(() => {
       // Extrai o número da página da URL

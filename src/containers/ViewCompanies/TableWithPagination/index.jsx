@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Colunas } from './styles';
 import React from 'react';
+import { checkLoggedIn } from '../../../utils/auth';
 
 function TableWithPagination({  itemsPerPage, companies, onDelete,
    onEdit, editedCompanyId, onUpdate }) {
@@ -21,17 +22,25 @@ function TableWithPagination({  itemsPerPage, companies, onDelete,
    
 
     useEffect(() => {
-      // Extrair o número da página da URL
+      const isLoggedIn = checkLoggedIn();
+      if (!isLoggedIn) {
+          document.cookie = `redirectUrl=${window.location.href}; path=/`;
+          window.location.href = '/login';
+      }
+  }, []);
+
+    useEffect(() => {
+      // Extrai o número da página da URL
       const urlParams = new URLSearchParams(window.location.search);
       const pageParam = urlParams.get('page');
     
-      // Definir a página atual com base no parâmetro da URL
+      // Definicao da página atual com base no parâmetro da URL
       if (pageParam) {
         setCurrentPage(parseInt(pageParam));
       }
     
     
-      // Definir o número total de páginas com base no número de empresas e itens por página
+      // Define o número total de páginas com base no número de empresas e itens por página
       setTotalPages(Math.ceil(companies.length / itemsPerPage));
     }, [companies, itemsPerPage]);
 

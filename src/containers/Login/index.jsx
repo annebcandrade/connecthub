@@ -1,12 +1,14 @@
 import { Container } from './styles'
 import Logo from '../../assets/Logo.png'
-import { useState } from 'react';
+import {  useState } from 'react';
 
 function Login()  {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [keepLoggedIn, setKeepLoggedIn] = useState(false);
+
+   
 
     const handleLogin = () => {
         if (username === 'person' && password === 'senha123') {
@@ -15,11 +17,32 @@ function Login()  {
             } else {
                 localStorage.setItem('username', username);
             }
-            window.location.href = '/Home';
+            const redirectUrl = getCookie('redirectUrl');
+            if (redirectUrl) {
+                // Redirecionar o usuário para a URL de redirecionamento
+                window.location.href = redirectUrl;
+            } else {
+                // Redirecionar o usuário para a página inicial (ou qualquer outra página padrão)
+                window.location.href = '/Home';
+            }
         } else {
             alert('Nome de usuário ou senha incorretos');
         }
     };
+
+    // Função para obter um cookie pelo nome
+    function getCookie(name) {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Verificar se o cookie começa com o nome do cookie desejado
+            if (cookie.startsWith(name + '=')) {
+                return cookie.substring(name.length + 1);
+            }
+        }
+        return '';
+    }
+    
 
 
 
