@@ -33,10 +33,35 @@ function ViewPartners()  {
         }
     };
 
-    const handleUpdate = () => {
-        console.log('Dados atualizados:', editedCompanyId);
-        setEditedCompanyId(null); 
-    }
+    const handleUpdate = async (id, name, urlDoc) => {
+        
+        
+        try {
+            const updatedData = {
+                name,
+                urlDoc,
+            };
+            const response = await axios.put(`https://644060ba792fe886a88de1b9.mockapi.io/v1/test/partners/${id}`, updatedData);
+            console.log('Resposta da atualização:', response.data);
+            alert('Empresa atualizada com sucesso!');
+            setEditedCompanyId(null);
+            window.location.reload();
+        } catch (error) {
+            console.error('Erro ao atualizar empresa:', error);
+            alert('Erro ao atualizar empresa. Verifique o console para mais detalhes.');
+        }
+    };
+
+    const handleInputChange = (e, id) => {
+        const { name, value } = e.target;
+        const updatedCompanies = companies.map(company => {
+            if (company.id === id) {
+                return { ...company, [name]: value };
+            }
+            return company;
+        });
+        setCompanies(updatedCompanies);
+    };
 
 
     return(
@@ -46,9 +71,9 @@ function ViewPartners()  {
        <TableWithPagination itemsPerPage={10} companies={companies} 
        onDelete={handleDelete} 
        onEdit={(id) => setEditedCompanyId(id)}
-                editedCompanyId={editedCompanyId}
-                onInputChange={(e, id) => console.log(e.target.value, id)}
-                onUpdate={handleUpdate}/>
+       editedCompanyId={editedCompanyId}
+       onInputChange={(e, id) => handleInputChange(e, id)}
+       onUpdate={handleUpdate}/>
          </Container>
     )
     

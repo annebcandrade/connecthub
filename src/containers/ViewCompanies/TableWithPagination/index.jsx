@@ -83,8 +83,8 @@ function TableWithPagination({  itemsPerPage, companies, onDelete,
             {editedCompanyId === company.id && (
               <tr>
                   <td colSpan="6">
-                  <input type="text" name="companyName" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
-                    <input type="text" name="collaboratorsCount" value={collaboratorsCount} onChange={(e) => setCollaboratorsCount(e.target.value)} />
+                  <input placeholder='Nome' type="text" name="companyName" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
+                    <input placeholder='Quantidade de Funcionàrios' type="text" name="collaboratorsCount" value={collaboratorsCount} onChange={(e) => setCollaboratorsCount(e.target.value)} />
                     <button onClick={() => handleUpdateClick(editedCompanyId)}>Atualizar</button>
                     <button onClick={() => onEdit(null)}>Cancelar</button>
                       </td>
