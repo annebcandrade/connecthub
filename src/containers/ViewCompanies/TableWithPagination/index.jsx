@@ -3,7 +3,9 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Colunas } from './styles';
 
-function TableWithPagination({  itemsPerPage, companies }) {
+function TableWithPagination({  itemsPerPage, companies, onDelete }) {
+
+ 
 
     TableWithPagination.propTypes = {
         itemsPerPage: PropTypes.number.isRequired,
@@ -37,6 +39,10 @@ function TableWithPagination({  itemsPerPage, companies }) {
         return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
       }
 
+      const handleDeleteClick = (id) => {
+        onDelete(id);
+    };
+
   return (
     <Colunas>
       <table>
@@ -60,7 +66,7 @@ function TableWithPagination({  itemsPerPage, companies }) {
               <td>{formatDate(company.lastSubmit)}</td>
               <td>
                 <button>Editar</button>
-                <button>Excluir</button>
+                <button onClick={() => handleDeleteClick(company.id)}>Excluir</button>
               </td>
             </tr>
           ))}
@@ -78,5 +84,11 @@ function TableWithPagination({  itemsPerPage, companies }) {
     </Colunas>
   );
 }
+
+TableWithPagination.propTypes = {
+  itemsPerPage: PropTypes.number.isRequired,
+  companies: PropTypes.array.isRequired,
+  onDelete: PropTypes.func.isRequired, 
+};
 
 export default TableWithPagination;
