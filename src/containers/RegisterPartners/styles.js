@@ -55,4 +55,13 @@ export const Container = styled.div`
         font-weight: bold;
         cursor: pointer;
     }
+
+    select {
+        width: 200px;
+        height: 35px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 10px;
+        padding-left: 30px;
+    }
 `
