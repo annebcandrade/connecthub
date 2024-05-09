@@ -39,14 +39,13 @@ function ViewCompanies()  {
                 companyName,
                 collaboratorsCount
             };
-            console.log(updatedData)
             const response = await axios.put(`https://655cf25525b76d9884fe3153.mockapi.io/v1/external-companies/${id}`, updatedData);
             console.log('Resposta da atualização:', response.data);
             alert('Empresa atualizada com sucesso!');
             setEditedCompanyId(null);
+            window.location.reload();
         } catch (error) {
             console.error('Erro ao atualizar empresa:', error);
-            console.log(error.response);
             alert('Erro ao atualizar empresa. Verifique o console para mais detalhes.');
         }
     };
