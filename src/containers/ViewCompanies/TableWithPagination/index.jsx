@@ -2,8 +2,10 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Colunas } from './styles';
+import React from 'react';
 
-function TableWithPagination({  itemsPerPage, companies, onDelete }) {
+function TableWithPagination({  itemsPerPage, companies, onDelete,
+   onEdit, editedCompanyId, onUpdate }) {
 
  
 
@@ -14,6 +16,8 @@ function TableWithPagination({  itemsPerPage, companies, onDelete }) {
 
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [companyName, setCompanyName] = useState('')
+    const [collaboratorsCount, setCollaboratorsCount] = useState('')
 
     useEffect(() => {
         setTotalPages(Math.ceil(companies.length / itemsPerPage));
@@ -43,6 +47,12 @@ function TableWithPagination({  itemsPerPage, companies, onDelete }) {
         onDelete(id);
     };
 
+    const handleUpdateClick = (id) => {
+      onUpdate(id, companyName, collaboratorsCount);
+  };
+  
+  
+
   return (
     <Colunas>
       <table>
@@ -58,6 +68,7 @@ function TableWithPagination({  itemsPerPage, companies, onDelete }) {
         </thead>
         <tbody>
         {currentItems.map(company => (
+          <React.Fragment key={company.id}>
             <tr key={company.id}>
               <td>{formatDate(company.createdAt)}</td>
               <td>{company.companyName}</td>
@@ -65,10 +76,21 @@ function TableWithPagination({  itemsPerPage, companies, onDelete }) {
               <td>{company.isActive ? 'Sim' : 'Não'}</td>
               <td>{formatDate(company.lastSubmit)}</td>
               <td>
-                <button>Editar</button>
+              <button onClick={() => onEdit(company.id)}>Editar</button>
                 <button onClick={() => handleDeleteClick(company.id)}>Excluir</button>
               </td>
             </tr>
+            {editedCompanyId === company.id && (
+              <tr>
+                  <td colSpan="6">
+                  <input type="text" name="companyName" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
+                    <input type="text" name="collaboratorsCount" value={collaboratorsCount} onChange={(e) => setCollaboratorsCount(e.target.value)} />
+                    <button onClick={() => handleUpdateClick(editedCompanyId)}>Atualizar</button>
+                    <button onClick={() => onEdit(null)}>Cancelar</button>
+                      </td>
+                      </tr>
+            )}
+            </React.Fragment>
           ))}
         </tbody>
       </table>
@@ -89,6 +111,10 @@ TableWithPagination.propTypes = {
   itemsPerPage: PropTypes.number.isRequired,
   companies: PropTypes.array.isRequired,
   onDelete: PropTypes.func.isRequired, 
+  onEdit: PropTypes.func.isRequired,
+    editedCompanyId: PropTypes.string,
+    onInputChange: PropTypes.func.isRequired,
+    onUpdate: PropTypes.func.isRequired,
 };
 
 export default TableWithPagination;

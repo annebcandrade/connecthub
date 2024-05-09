@@ -8,6 +8,7 @@ import axios from 'axios';
 function ViewPartners()  {
 
     const [companies, setCompanies] = useState([]);
+    const [editedCompanyId, setEditedCompanyId] = useState(null);
 
     useEffect(() => {
         axios.get('https://644060ba792fe886a88de1b9.mockapi.io/v1/test/partners')
@@ -32,11 +33,22 @@ function ViewPartners()  {
         }
     };
 
+    const handleUpdate = () => {
+        console.log('Dados atualizados:', editedCompanyId);
+        setEditedCompanyId(null); 
+    }
+
+
     return(
         <Container>
         <h1>Visualizar Parceiros</h1>
        <p>Lista de Parceiros cadastrados na connect hub.</p>
-       <TableWithPagination itemsPerPage={10} companies={companies} onDelete={handleDelete} />
+       <TableWithPagination itemsPerPage={10} companies={companies} 
+       onDelete={handleDelete} 
+       onEdit={(id) => setEditedCompanyId(id)}
+                editedCompanyId={editedCompanyId}
+                onInputChange={(e, id) => console.log(e.target.value, id)}
+                onUpdate={handleUpdate}/>
          </Container>
     )
     
