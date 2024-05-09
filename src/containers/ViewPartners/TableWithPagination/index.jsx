@@ -19,8 +19,20 @@ function TableWithPagination({  itemsPerPage, companies, onDelete,
     const [urlDoc, setUrlDoc] = useState('')
 
     useEffect(() => {
-        setTotalPages(Math.ceil(companies.length / itemsPerPage));
+      // Extrai o número da página da URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const pageParam = urlParams.get('page');
+    
+      // Definicao da página atual com base no parâmetro da URL
+      if (pageParam) {
+        setCurrentPage(parseInt(pageParam));
+      }
+    
+    
+      // Define o número total de páginas com base no número de empresas e itens por página
+      setTotalPages(Math.ceil(companies.length / itemsPerPage));
     }, [companies, itemsPerPage]);
+
 
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = Math.min(startIndex + itemsPerPage, companies.length);
@@ -28,6 +40,9 @@ function TableWithPagination({  itemsPerPage, companies, onDelete,
 
     const goToPage = (page) => {
         setCurrentPage(page);
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set('page', page);
+        window.history.pushState({}, '', `${window.location.pathname}?${urlParams}`);
     };
 
     function formatDate(dateString) {
