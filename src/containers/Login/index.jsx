@@ -6,10 +6,15 @@ function Login()  {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
+    const [keepLoggedIn, setKeepLoggedIn] = useState(false);
 
     const handleLogin = () => {
-        if (username === 'user' && password === 'senha123') {
+        if (username === 'person' && password === 'senha123') {
+            if (keepLoggedIn) {
+                document.cookie = `username=${username}; expires=${new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString()}; path=/`;
+            } else {
+                localStorage.setItem('username', username);
+            }
             window.location.href = '/Home';
         } else {
             alert('Nome de usuário ou senha incorretos');
@@ -35,6 +40,12 @@ return(
      value={password}
      onChange={(e) => setPassword(e.target.value)}
     />
+     <input
+                    type="checkbox"
+                    checked={keepLoggedIn}
+                    onChange={() => setKeepLoggedIn(!keepLoggedIn)}
+                />
+                <label>Mantenha-me conectado</label>
     <button onClick={handleLogin}>Entrar
     </button>
     </Container>
