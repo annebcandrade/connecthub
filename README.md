@@ -7,6 +7,12 @@ https://youtu.be/QWZw2cDVrj0?feature=shared
 https://connecthub-git-main-annebcandrades-projects.vercel.app/login
 https://connecthub2-git-main-annebcandrades-projects.vercel.app/login
 
+## 📝 Como Fazerr Login?
+Para fazer login utilize os dados: 
+Nome de usuário: person (tudo minúsculo)
+Senha: senha123 (tudo minúsculo)
+Marque o checkbox Manter Conectado para salvar o nome de usuário nos cookies! 
+
 ## 🌐 Tecnologias Utilizadas:
 React js,styled-components, vite, vercel, Javascript, tabela com paginação, conexão ao backend via Axios dos métodos get, post, put, delete. 
 
