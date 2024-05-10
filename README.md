@@ -9,7 +9,7 @@ https://connecthub-git-main-annebcandrades-projects.vercel.app/login
 
 https://connecthub2-git-main-annebcandrades-projects.vercel.app/login
 
-## 📝 Como Fazerr Login?
+## 📝 Como Fazer Login?
 
 Para fazer login utilize os dados: 
 
