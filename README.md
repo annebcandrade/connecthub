@@ -4,7 +4,7 @@
 https://youtu.be/QWZw2cDVrj0?feature=shared
 
 ## 🚀 link dos deploys na vercel: 
-https://connecthub-ae23k4t7z-annebcandrades-projects.vercel.app/login
+https://connecthub-git-main-annebcandrades-projects.vercel.app/login
 https://connecthub2-git-main-annebcandrades-projects.vercel.app/login
 
 ## 🌐 Tecnologias Utilizadas:
